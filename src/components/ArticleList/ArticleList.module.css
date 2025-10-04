@@ -1,0 +1,14 @@
+.news_feed_container {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 24px;
+    width: 100%;
+    padding: 16px;
+    border-radius: 10px;
+}
+
+.skeletons_container {
+    width: 100%;
+}
