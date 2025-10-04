@@ -1,0 +1,40 @@
+.selected_tab {
+    color: white;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.unselected_tab {
+    color: gray;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.feed_container {
+    display: flex;
+    justify-items: center;
+    width: 100%;
+}
+
+.tabs_wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    gap: 16px;
+    align-items: center;
+}
+
+@media only screen and (max-width: 768px) {
+
+    .tabs_wrapper {
+        flex-direction: column;
+    }
+}
+
+.alert_tab {
+    border-bottom: 1px solid red
+}
+
+.green_tab {
+    border-bottom: 1px solid green
+}
