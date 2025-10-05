@@ -1,0 +1,30 @@
+.authentication_header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: start;
+    padding: 16px;
+    gap: 12px;
+}
+
+.keys_container {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+}
+
+.keys {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.keys_repeater {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    justify-content: space-between;
+    width: 100%;
+}
