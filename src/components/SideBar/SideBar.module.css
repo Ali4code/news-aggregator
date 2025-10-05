@@ -1,0 +1,31 @@
+.sidebar_container {
+    width: fit-content;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 36px 24px;
+    gap: 24px;
+    background-color: #292f33 !important;
+    font-weight: 700;
+    color: grey;
+    font-size: 24px;
+    position: fixed;
+    z-index: 2;
+}
+.back_drop {
+    position: fixed;
+    backdrop-filter: blur(5px);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.sidebar_tabs {
+    display: inline-block;
+    cursor: pointer;
+}
