@@ -75,7 +75,9 @@ Sources used:
 │   │   └── store
 │   │       ├── index.ts
 │   │       └── slices
+│   │           ├── authSlice.test.ts
 │   │           ├── authSlice.ts
+│   │           ├── tabsSlice.test.ts
 │   │           └── tabsSlice.ts
 │   ├── App.tsx
 │   ├── components
@@ -119,40 +121,16 @@ Sources used:
 │   │   ├── SideBar
 │   │   │   ├── SideBar.module.css
 │   │   │   └── SideBar.tsx
-│   │   ├── Tabs
-│   │   │   ├── Tabs.module.css
-│   │   │   └── Tabs.tsx
-│   │   └── UI
-│   │       ├── Button.module.css
-│   │       ├── Button.tsx
-│   │       ├── ButtonLink.module.css
-│   │       └── ButtonLink.tsx
+│   │   └── Tabs
+│   │       ├── Tabs.module.css
+│   │       └── Tabs.tsx
 │   ├── entities
 │   │   ├── article
 │   │   │   └── index.ts
 │   │   └── preferences
 │   │       └── Preferences.types.ts
-│   ├── features
-│   │   ├── articles
-│   │   ├── preferences
-│   │   └── search
-│   ├── hooks
 │   ├── index.css
 │   ├── main.tsx
-│   ├── pages
-│   ├── services
-│   │   ├── NewsApi
-│   │   │   ├── NewsApi.api.ts
-│   │   │   ├── NewsApi.constants.ts
-│   │   │   └── NewsApi.types.ts
-│   │   ├── NewYorkTimes
-│   │   │   ├── NewYorkTimes.api.ts
-│   │   │   ├── NewYorkTimes.constants.ts
-│   │   │   └── NewYorkTimes.types.ts
-│   │   └── TheGuardian
-│   │       ├── TheGuardian.api.ts
-│   │       ├── TheGuardian.constants.ts
-│   │       └── TheGuardian.types.ts
 │   ├── shared
 │   │   ├── api
 │   │   │   ├── newsApi
@@ -173,7 +151,9 @@ Sources used:
 │   │   ├── hooks
 │   │   │   └── useAuthAlert.ts
 │   │   ├── lib
+│   │   │   ├── aggregator.util.test.ts
 │   │   │   ├── aggregator.util.ts
+│   │   │   ├── useGetNewsFeed.test.ts
 │   │   │   └── useGetNewsFeed.ts
 │   │   └── ui
 │   │       ├── Button.module.css
@@ -184,10 +164,8 @@ Sources used:
 │   │   ├── authSlice.ts
 │   │   ├── store.ts
 │   │   └── tabsSlice.ts
-│   ├── types
 │   ├── utils
 │   │   ├── aggregator.util.ts
-│   │   ├── useAuthAlert.ts
 │   │   └── useGetNewsFeed.ts
 │   ├── vite-env.d.ts
 │   └── widgets
@@ -199,7 +177,36 @@ Sources used:
 ├── tsconfig.app.json
 ├── tsconfig.json
 ├── tsconfig.node.json
-└── vite.config.ts
+├── vite.config.ts
+└── vitest.config.ts
+```
+
+# Tests
+
+Run the test suite with Vitest:
+
+```bash
+npm run test
+```
+
+Watch mode for local development:
+
+```bash
+npm run test:watch
+```
+
+Generate coverage (HTML + text) using the configured V8 provider:
+
+```bash
+npm run test -- --coverage
+```
+
+- The HTML report is written to `coverage/index.html`.
+- JSDOM environment and path aliases are configured in `vitest.config.ts`.
+- To run a single file:
+
+```bash
+npx vitest run src/shared/lib/aggregator.util.test.ts
 ```
 
 # Tech stack
