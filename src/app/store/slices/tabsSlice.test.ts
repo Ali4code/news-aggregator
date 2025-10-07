@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { TabsSlice, setActionSelectedTab } from "./tabsSlice";
-import type { TTab } from "@widgets/navbar/Navbar.types";
+import type { TTab } from "../../../components/Navbar/Navbar.types";
+import { TABS } from "../../../components/Navbar/Navbar.constants";
 
 const reducer = TabsSlice.reducer;
 
@@ -22,7 +23,7 @@ describe("tabsSlice", () => {
   it("sets selected tab via setActionSelectedTab", () => {
     const initialState = reducer(undefined, { type: "@@INIT" });
 
-    const nextTab = "home" as TTab;
+    const nextTab = TABS.news;
     const next = reducer(initialState, setActionSelectedTab({ selectedTab: nextTab }));
     expect(next.selectedTab).toEqual(nextTab);
   });
