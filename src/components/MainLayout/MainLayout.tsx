@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { selectSelectedTab } from "../../store/tabsSlice";
 import { NewsFeed } from "../NewsFeed/NewsFeed";
 import { TABS } from "../Navbar/Navbar.constants";
-import { AuthenticationFrom } from "../AuthenticationFrom/AuthenticationFrom";
+import { AuthenticationForm } from "../AuthenticationForm/AuthenticationForm";
 import { SearchFeed } from "../SearchFeed/SearchFeed";
 
 export const MainLayout = () => {
@@ -19,7 +19,7 @@ export const MainLayout = () => {
     return <SearchFeed />;
   }
   if (selectedTab.name === TABS.authorization.name) {
-    return <AuthenticationFrom />;
+    return <AuthenticationForm />;
   }
 
   return <div></div>;

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Classes from "./AuthenticationFrom.module.css";
+import Classes from "./AuthenticationForm.module.css";
 import { API_KEYS_LOCAL_STORAGE_KEY } from "../../constants";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -10,7 +10,7 @@ import {
 import { setActionSelectedTab } from "../../store/tabsSlice";
 import { TABS } from "../Navbar/Navbar.constants";
 
-export const AuthenticationFrom = () => {
+export const AuthenticationForm = () => {
   const storedApiKeys = useSelector(selectApiKeys);
 
   const [apiKeys, setApiKeys] = useState<TApiKeys>(
