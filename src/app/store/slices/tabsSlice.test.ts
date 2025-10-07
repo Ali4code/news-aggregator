@@ -1,6 +1,5 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { TabsSlice, setActionSelectedTab } from "./tabsSlice";
-import type { TTab } from "../../../components/Navbar/Navbar.types";
 import { TABS } from "../../../components/Navbar/Navbar.constants";
 
 const reducer = TabsSlice.reducer;
