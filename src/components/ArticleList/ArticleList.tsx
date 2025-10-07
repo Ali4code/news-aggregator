@@ -1,4 +1,5 @@
-import { ArticleCard, TArticle } from "../ArticleCard/ArticleCard";
+import { ArticleCard } from "../ArticleCard/ArticleCard";
+import { TArticle } from "@entities/article";
 import { ArticleCardSkeleton } from "../ArticleCard/ArticleCard.skeleton";
 import Classes from "./ArticleList.module.css";
 

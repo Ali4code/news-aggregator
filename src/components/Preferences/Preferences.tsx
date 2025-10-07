@@ -1,10 +1,10 @@
-import { TPreferences, TSource, TWebState } from "./Preferences.types";
+import { TPreferences, TSource, TWebState } from "@entities/preferences/Preferences.types";
 import Classes from "./Preferences.module.css";
-import { API_SOURCES } from "../SearchColumn/SearchColumn.constants";
+import { API_SOURCES } from "@shared/config/apiSources";
 import { CategorySelect } from "./CategorySelect";
 import { FilterIcon } from "./assets/FilterIcon";
 import { useState } from "react";
-import { WEBPAGE_STATE_LOCAL_STORAGE_KEY } from "../../constants";
+import { WEBPAGE_STATE_LOCAL_STORAGE_KEY } from "@shared/config/constants";
 
 export const Preferences = ({
   preferences,

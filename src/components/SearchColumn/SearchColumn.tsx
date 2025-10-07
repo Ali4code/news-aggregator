@@ -1,6 +1,6 @@
 import Classes from "./SearchColumn.module.css";
 import { API_SOURCES } from "./SearchColumn.constants";
-import { Button } from "../UI/Button";
+import { Button } from "@shared/ui/Button";
 import { FilterIcon } from "../Preferences/assets/FilterIcon";
 
 export const SearchColumn = ({

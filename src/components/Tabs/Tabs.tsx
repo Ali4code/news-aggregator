@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import Classes from "./Tabs.module.css";
-import { selectApiKeys } from "../../store/authSlice";
+import { selectApiKeys } from "@app/store/slices/authSlice";
 import { TTab } from "../Navbar/Navbar.types";
-import { WEBPAGE_STATE_LOCAL_STORAGE_KEY } from "../../constants";
-import { selectSelectedTab, setActionSelectedTab } from "../../store/tabsSlice";
-import { TWebState } from "../Preferences/Preferences.types";
+import { WEBPAGE_STATE_LOCAL_STORAGE_KEY } from "@shared/config/constants";
+import { selectSelectedTab, setActionSelectedTab } from "@app/store/slices/tabsSlice";
+import { TWebState } from "@entities/preferences/Preferences.types";
 
 export const Tabs = ({
   tabs,

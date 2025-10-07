@@ -1,9 +1,9 @@
-import { TArticle } from "../components/ArticleCard/ArticleCard";
-import { TPreferences } from "../components/Preferences/Preferences.types";
-import { API_SOURCES } from "../components/SearchColumn/SearchColumn.constants";
-import { TNewsApiOrgResponse } from "../services/NewsApi/NewsApi.types";
-import { TNewYorTimesResponse } from "../services/NewYorkTimes/NewYorkTimes.types";
-import { TGuardianResponse } from "../services/TheGuardian/TheGuardian.types";
+import { TArticle } from "@entities/article";
+import { TPreferences } from "@entities/preferences/Preferences.types";
+import { API_SOURCES } from "@shared/config/apiSources";
+import { TNewsApiOrgResponse } from "@shared/api/newsApi/NewsApi.types";
+import { TNewYorTimesResponse } from "@shared/api/nyTimes/NewYorkTimes.types";
+import { TGuardianResponse } from "@shared/api/theGuardian/TheGuardian.types";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const normalizeArticles = (articles: any[]): TArticle[] => {

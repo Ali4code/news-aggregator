@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { selectSelectedTab } from "../../store/tabsSlice";
+import { selectSelectedTab } from "@app/store/slices/tabsSlice";
 import { NewsFeed } from "../NewsFeed/NewsFeed";
 import { TABS } from "../Navbar/Navbar.constants";
 import { AuthenticationForm } from "../AuthenticationForm/AuthenticationForm";

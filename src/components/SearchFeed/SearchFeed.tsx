@@ -1,15 +1,15 @@
 import { useState } from "react";
-import { useLazySearchGuardianQuery } from "../../services/TheGuardian/TheGuardian.api";
-import { useLazySearchNewsApiOrgQuery } from "../../services/NewsApi/NewsApi.api";
-import { useLazySearchNewYorkTimesQuery } from "../../services/NewYorkTimes/NewYorkTimes.api";
+import { useLazySearchGuardianQuery } from "@shared/api/theGuardian/TheGuardian.api";
+import { useLazySearchNewsApiOrgQuery } from "@shared/api/newsApi/NewsApi.api";
+import { useLazySearchNewYorkTimesQuery } from "@shared/api/nyTimes/NewYorkTimes.api";
 import { ArticleList } from "../ArticleList/ArticleList";
 import { SearchColumn } from "../SearchColumn/SearchColumn";
-import { API_SOURCES } from "../SearchColumn/SearchColumn.constants";
+import { API_SOURCES } from "@shared/config/apiSources";
 import { useSelector } from "react-redux";
-import { selectApiKeys } from "../../store/authSlice";
-import { useAuthAlert } from "../../utils/useAuthAlert";
-import { normalizeArticles } from "../../utils/aggregator.util";
-import { TArticle } from "../ArticleCard/ArticleCard";
+import { selectApiKeys } from "@app/store/slices/authSlice";
+import { useAuthAlert } from "@shared/hooks/useAuthAlert";
+import { normalizeArticles } from "@shared/lib/aggregator.util";
+import { TArticle } from "@entities/article";
 
 export const SearchFeed = () => {
   useAuthAlert();

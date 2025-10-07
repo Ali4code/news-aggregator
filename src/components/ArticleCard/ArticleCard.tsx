@@ -1,15 +1,6 @@
-import { ButtonLink } from "../UI/ButtonLink";
+import { ButtonLink } from "@shared/ui/ButtonLink";
 import Classes from "./ArticleCard.module.css";
-
-export type TArticle = {
-  id: string;
-  title: string;
-  content: string;
-  image: string;
-  date: string;
-  url: string;
-  source: string;
-};
+import { TArticle } from "@entities/article";
 export const ArticleCard = ({ article }: { article: TArticle }) => {
   return (
     <div className={Classes.article_card_container}>

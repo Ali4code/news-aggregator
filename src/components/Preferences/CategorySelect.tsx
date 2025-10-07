@@ -1,5 +1,5 @@
 import Classes from "./Preferences.module.css";
-import { TSource } from "./Preferences.types";
+import { TSource } from "@entities/preferences/Preferences.types";
 
 export const CategorySelect = ({
   title,

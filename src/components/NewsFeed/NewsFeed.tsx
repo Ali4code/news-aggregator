@@ -1,16 +1,11 @@
 import { ArticleList } from "../ArticleList/ArticleList";
-import { useAuthAlert } from "../../utils/useAuthAlert";
+import { useAuthAlert } from "@shared/hooks/useAuthAlert";
 import { Preferences } from "../Preferences/Preferences";
-import {
-  TCategory,
-  TPreferences,
-  TSource,
-  TWebState,
-} from "../Preferences/Preferences.types";
-import { WEBPAGE_STATE_LOCAL_STORAGE_KEY } from "../../constants";
+import { TCategory, TPreferences, TSource, TWebState } from "@entities/preferences/Preferences.types";
+import { WEBPAGE_STATE_LOCAL_STORAGE_KEY } from "@shared/config/constants";
 import { useEffect, useState } from "react";
-import { useGetNewsFeed } from "../../utils/useGetNewsFeed";
-import { API_SOURCES } from "../SearchColumn/SearchColumn.constants";
+import { useGetNewsFeed } from "@shared/lib/useGetNewsFeed";
+import { API_SOURCES } from "@shared/config/apiSources";
 
 export const NewsFeed = () => {
   useAuthAlert();

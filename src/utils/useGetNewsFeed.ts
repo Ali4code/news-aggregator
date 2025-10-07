@@ -1,11 +1,11 @@
-import { TPreferences } from "../components/Preferences/Preferences.types";
+import { TPreferences } from "@entities/preferences/Preferences.types";
 import { useSelector } from "react-redux";
-import { selectApiKeys } from "../store/authSlice";
-import { useGetHeadlinesNewsApiOrgQuery } from "../services/NewsApi/NewsApi.api";
-import { useSearchNewYorkTimesQuery } from "../services/NewYorkTimes/NewYorkTimes.api";
-import { API_SOURCES } from "../components/SearchColumn/SearchColumn.constants";
+import { selectApiKeys } from "@app/store/slices/authSlice";
+import { useGetHeadlinesNewsApiOrgQuery } from "@shared/api/newsApi/NewsApi.api";
+import { useSearchNewYorkTimesQuery } from "@shared/api/nyTimes/NewYorkTimes.api";
+import { API_SOURCES } from "@shared/config/apiSources";
 import { getAggregatedNews } from "./aggregator.util";
-import { useSearchGuardianQuery } from "../services/TheGuardian/TheGuardian.api";
+import { useSearchGuardianQuery } from "@shared/api/theGuardian/TheGuardian.api";
 
 export const useGetNewsFeed = ({
   preferences,

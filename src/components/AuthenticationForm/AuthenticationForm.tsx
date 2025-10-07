@@ -1,13 +1,13 @@
 import { useState } from "react";
 import Classes from "./AuthenticationForm.module.css";
-import { API_KEYS_LOCAL_STORAGE_KEY } from "../../constants";
+import { API_KEYS_LOCAL_STORAGE_KEY } from "@shared/config/constants";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectApiKeys,
   setActionApiKeys,
   TApiKeys,
-} from "../../store/authSlice";
-import { setActionSelectedTab } from "../../store/tabsSlice";
+} from "@app/store/slices/authSlice";
+import { setActionSelectedTab } from "@app/store/slices/tabsSlice";
 import { TABS } from "../Navbar/Navbar.constants";
 
 export const AuthenticationForm = () => {

@@ -1,7 +1,7 @@
 import { Provider } from "react-redux";
-import { store } from "./store/store";
-import { NavbarContainer } from "./components/Navbar/NavbarContainer";
-import { MainLayout } from "./components/MainLayout/MainLayout";
+import { store } from "@app/store";
+import { NavbarContainer } from "@widgets/navbar/NavbarContainer";
+import { MainLayout } from "@widgets/main-layout/MainLayout";
 
 function App() {
   return (
