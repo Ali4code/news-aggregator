@@ -7,6 +7,8 @@ import { configureStore, Middleware } from "@reduxjs/toolkit";
 import { BaseApi } from "@app/api/baseApi";
 import { AuthSlice } from "@app/store/slices/authSlice";
 import { TabsSlice } from "@app/store/slices/tabsSlice";
+import { readFromLocalStorage } from "@shared/lib/storage";
+import { API_KEYS_LOCAL_STORAGE_KEY, WEBPAGE_STATE_LOCAL_STORAGE_KEY } from "@shared/config/constants";
 
 const middleware = (getDefaultMiddleware: () => Middleware[]) =>
   getDefaultMiddleware().concat(BaseApi.middleware);
@@ -17,9 +19,19 @@ const reducer = {
   [TabsSlice.name]: TabsSlice.reducer,
 };
 
+const preloadedState = (() => {
+  const apiKeys = readFromLocalStorage<any>(API_KEYS_LOCAL_STORAGE_KEY);
+  const webpageState = readFromLocalStorage<any>(WEBPAGE_STATE_LOCAL_STORAGE_KEY);
+  return {
+    [AuthSlice.name]: { apiKeys: apiKeys ?? undefined },
+    [TabsSlice.name]: { selectedTab: webpageState?.selectedTab },
+  } as unknown as Partial<ReturnType<typeof configureStore>['prototype']>;
+})();
+
 const config = {
   reducer,
   middleware,
+  preloadedState,
 };
 
 // @ts-expect-error next-line

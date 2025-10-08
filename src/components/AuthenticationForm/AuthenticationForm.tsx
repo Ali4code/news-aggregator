@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Classes from "./AuthenticationForm.module.css";
 import { API_KEYS_LOCAL_STORAGE_KEY } from "@shared/config/constants";
+import { writeToLocalStorage } from "@shared/lib/storage";
 import { useDispatch, useSelector } from "react-redux";
 import {
   selectApiKeys,
@@ -31,7 +32,7 @@ export const AuthenticationForm = () => {
   const dispatch = useDispatch();
   const onSubmit = (event: { preventDefault: () => void }) => {
     event.preventDefault();
-    localStorage.setItem(API_KEYS_LOCAL_STORAGE_KEY, JSON.stringify(apiKeys));
+    writeToLocalStorage(API_KEYS_LOCAL_STORAGE_KEY, apiKeys);
     dispatch(setActionApiKeys({ apiKeys }));
     dispatch(setActionSelectedTab({ selectedTab: TABS.news }));
   };

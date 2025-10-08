@@ -3,6 +3,7 @@ import Classes from "./Tabs.module.css";
 import { selectApiKeys } from "@app/store/slices/authSlice";
 import { TTab } from "../Navbar/Navbar.types";
 import { WEBPAGE_STATE_LOCAL_STORAGE_KEY } from "@shared/config/constants";
+import { readFromLocalStorage, writeToLocalStorage } from "@shared/lib/storage";
 import { selectSelectedTab, setActionSelectedTab } from "@app/store/slices/tabsSlice";
 import { TWebState } from "@entities/preferences/Preferences.types";
 
@@ -18,19 +19,16 @@ export const Tabs = ({
   const dispatch = useDispatch();
   const selectedTab = useSelector(selectSelectedTab);
   const onTabSelect = (tab: TTab) => {
-    const prevWebState = JSON.parse(
-      localStorage.getItem(WEBPAGE_STATE_LOCAL_STORAGE_KEY) ?? "{}"
-    ) as TWebState;
+    const prevWebState =
+      (readFromLocalStorage<TWebState>(WEBPAGE_STATE_LOCAL_STORAGE_KEY) as TWebState) ||
+      ({} as TWebState);
 
     const webpageState = {
       ...prevWebState,
       selectedTab: tab,
     };
 
-    localStorage.setItem(
-      WEBPAGE_STATE_LOCAL_STORAGE_KEY,
-      JSON.stringify(webpageState)
-    );
+    writeToLocalStorage(WEBPAGE_STATE_LOCAL_STORAGE_KEY, webpageState);
 
     dispatch(setActionSelectedTab({ selectedTab: tab }));
   };
