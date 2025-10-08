@@ -4,7 +4,7 @@ import { API_SOURCES } from "@shared/config/apiSources";
 import { CategorySelect } from "./CategorySelect";
 import { FilterIcon } from "./assets/FilterIcon";
 import { useState } from "react";
-import { WEBPAGE_STATE_LOCAL_STORAGE_KEY } from "@shared/config/constants";
+import { getWebState, setWebState } from "@shared/lib/webState";
 
 export const Preferences = ({
   preferences,
@@ -18,22 +18,17 @@ export const Preferences = ({
   ) => void;
   onSourceChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }) => {
-  const webState = JSON.parse(
-    localStorage.getItem(WEBPAGE_STATE_LOCAL_STORAGE_KEY) ?? "{}"
-  ) as TWebState;
+  const webState = getWebState<TWebState>();
 
   const [isExpanded, setIsExpanded] = useState(
     webState.isPreferencesExpanded ?? true
   );
 
   const onExtendToggle = () => {
-    localStorage.setItem(
-      WEBPAGE_STATE_LOCAL_STORAGE_KEY,
-      JSON.stringify({
-        ...webState,
-        isPreferencesExpanded: !isExpanded,
-      })
-    );
+    setWebState({
+      ...webState,
+      isPreferencesExpanded: !isExpanded,
+    } as unknown as TWebState);
     setIsExpanded((prev) => !prev);
   };
 

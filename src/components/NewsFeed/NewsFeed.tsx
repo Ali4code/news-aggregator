@@ -2,7 +2,7 @@ import { ArticleList } from "../ArticleList/ArticleList";
 import { useAuthAlert } from "@shared/hooks/useAuthAlert";
 import { Preferences } from "../Preferences/Preferences";
 import { TCategory, TPreferences, TSource, TWebState } from "@entities/preferences/Preferences.types";
-import { WEBPAGE_STATE_LOCAL_STORAGE_KEY } from "@shared/config/constants";
+import { getWebState, setWebState } from "@shared/lib/webState";
 import { useEffect, useState } from "react";
 import { useGetNewsFeed } from "@shared/lib/useGetNewsFeed";
 import { API_SOURCES } from "@shared/config/apiSources";
@@ -11,9 +11,7 @@ export const NewsFeed = () => {
   useAuthAlert();
 
   // to keep the preferences in local storage to prevent user losing their selected filters
-  const prevWebState = JSON.parse(
-    localStorage.getItem(WEBPAGE_STATE_LOCAL_STORAGE_KEY) ?? "{}"
-  ) as TWebState;
+  const prevWebState = getWebState<TWebState>();
   const [preferences, setPreferences] = useState<TPreferences>(
     prevWebState?.preferences ?? {
       sources: [
@@ -59,11 +57,8 @@ export const NewsFeed = () => {
     const webpageState = {
       ...prevWebState,
       preferences,
-    };
-    localStorage.setItem(
-      WEBPAGE_STATE_LOCAL_STORAGE_KEY,
-      JSON.stringify(webpageState)
-    );
+    } as TWebState;
+    setWebState(webpageState);
   }, [preferences, prevWebState]);
 
   const { data, isLoading } = useGetNewsFeed({ preferences });
