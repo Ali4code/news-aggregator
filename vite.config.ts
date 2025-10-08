@@ -14,6 +14,7 @@ export default defineConfig({
       '@features': resolve(dirname(fileURLToPath(import.meta.url)), 'src/features'),
       '@entities': resolve(dirname(fileURLToPath(import.meta.url)), 'src/entities'),
       '@shared': resolve(dirname(fileURLToPath(import.meta.url)), 'src/shared'),
+      '@components': resolve(dirname(fileURLToPath(import.meta.url)), 'src/components'),
     },
   },
   preview: {

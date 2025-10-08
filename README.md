@@ -28,6 +28,10 @@ npm run dev
 ```
    - Open [http://localhost:8080/](http://localhost:8080/)
 
+   - Environment:
+     - The app now reads API keys at runtime from the in-app Auth tab. Local development does not require `.env` files.
+     - Free-tier `newsapi.org` applies CORS outside `localhost`; use local dev or Docker for full functionality.
+
 4. Build and preview
 
 ```bash
@@ -43,7 +47,7 @@ npm run deploy
 
 # API keys
 
-To avoid committing API keys, an auth tab exists in the UI. Keys were committed temporarily for convenience; if they become invalid, obtain new keys from the sources below and update them in the auth tab.
+An Auth tab in the UI is the single place to manage keys at runtime. If bundled demo keys expire, obtain new keys from the sources below and paste them into the Auth tab (no rebuild required).
 
 Sources used:
 1. [NewsApi.org](https://newsapi.org/)
@@ -90,3 +94,39 @@ Aliases configured in `vite.config.ts`:
 - `@features` → `src/features`
 - `@entities` → `src/entities`
 - `@shared` → `src/shared`
+
+# Architecture (branch: address-issues)
+
+This branch refactors the app following SOLID and introduces a service/registry architecture.
+
+High-level flow:
+
+```
+Components → Custom Hooks → NewsAggregationService → INewsApiService (Interface)
+                                                            ↓
+                                              ServiceRegistry → Concrete Services → RTK Query
+                                                                        ↓
+                                                                   Redux Store
+```
+
+- News services live behind `INewsApiService` with concrete implementations for NewsAPI.org, NYTimes, and The Guardian.
+- `NewsApiServiceRegistry` registers sources; add new sources without touching components.
+- `NewsAggregationService` centralizes aggregation and normalization.
+- Store bootstrap moved to `src/app/store/index.ts` (app layer owns store lifecycle).
+
+Key files:
+- `src/shared/api/abstractions/INewsApiService.ts`
+- `src/shared/api/registry/NewsApiServiceRegistry.ts`
+- `src/shared/services/NewsAggregationService.ts`
+- `src/hooks/useNewsSearch.ts`, `src/hooks/usePreferences.ts`
+- `src/app/store/index.ts`
+
+# Extending
+
+Add a new news source:
+1) Implement `INewsApiService` in `src/shared/api/implementations/*Service.ts`.
+2) Register it in `src/shared/api/registry/NewsApiServiceRegistry.ts`.
+
+Add a new route:
+1) Register the component in `src/shared/routing/routes.ts`.
+2) `MainLayout` resolves routes via the registry—no component edits required.
