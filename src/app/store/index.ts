@@ -22,10 +22,13 @@ const reducer = {
 const preloadedState = (() => {
   const apiKeys = readFromLocalStorage<any>(API_KEYS_LOCAL_STORAGE_KEY);
   const webpageState = readFromLocalStorage<any>(WEBPAGE_STATE_LOCAL_STORAGE_KEY);
-  return {
-    [AuthSlice.name]: { apiKeys: apiKeys ?? undefined },
+  const state: Record<string, unknown> = {
     [TabsSlice.name]: { selectedTab: webpageState?.selectedTab },
-  } as unknown as Partial<ReturnType<typeof configureStore>['prototype']>;
+  };
+  if (apiKeys) {
+    state[AuthSlice.name] = { apiKeys };
+  }
+  return state;
 })();
 
 const config = {

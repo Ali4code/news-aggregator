@@ -6,7 +6,8 @@
       "@widgets/*": ["widgets/*"],
       "@features/*": ["features/*"],
       "@entities/*": ["entities/*"],
-      "@shared/*": ["shared/*"]
+      "@shared/*": ["shared/*"],
+      "@components/*": ["components/*"]
     },
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "target": "ES2020",
