@@ -7,6 +7,7 @@ export const SearchColumn = ({
   onChange,
   searchFilters,
   onSearch,
+  isSearchDisabled,
 }: {
   onChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -18,6 +19,7 @@ export const SearchColumn = ({
     source?: (typeof API_SOURCES)[keyof typeof API_SOURCES]["id"];
   };
   onSearch: () => void;
+  isSearchDisabled?: boolean;
 }) => {
   return (
     <div className={Classes.search_column_container}>
@@ -87,7 +89,7 @@ export const SearchColumn = ({
           </div>
         </div>
 
-        <Button onClick={onSearch} text="Search" />
+        <Button onClick={onSearch} text="Search" disabled={isSearchDisabled} />
       </div>
     </div>
   );

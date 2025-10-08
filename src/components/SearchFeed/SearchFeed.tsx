@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useSelector } from "react-redux";
 import { ArticleList } from "../ArticleList/ArticleList";
 import { SearchColumn } from "../SearchColumn/SearchColumn";
@@ -20,7 +20,7 @@ export const SearchFeed = () => {
     from?: string;
     to?: string;
     source?: (typeof API_SOURCES)[keyof typeof API_SOURCES]["id"];
-  }>({});
+  }>({ source: API_SOURCES.THE_GUARDIAN.id });
 
   const apiKeys = useSelector(selectApiKeys);
   const { searchResults, isLoading, search } = useNewsSearch();
@@ -34,7 +34,13 @@ export const SearchFeed = () => {
   const onSearch = () => {
     if (!searchFilters.source || !apiKeys) return;
 
-    const apiKey = apiKeys[searchFilters.source as keyof typeof apiKeys];
+    const apiKey = ((): string | undefined => {
+      if (searchFilters.source === API_SOURCES.THE_GUARDIAN.id) return apiKeys.guardianNews;
+      if (searchFilters.source === API_SOURCES.NEW_YORK_TIMES.id) return apiKeys.nyTimes;
+      if (searchFilters.source === API_SOURCES.THE_NEWS_API_ORG.id) return apiKeys.newsApiOrg;
+      return apiKeys[searchFilters.source as keyof typeof apiKeys];
+    })();
+
     if (!apiKey) return;
 
     search(searchFilters.source, apiKey, {
@@ -44,12 +50,24 @@ export const SearchFeed = () => {
     });
   };
 
+  const isSearchDisabled = useMemo(() => {
+    if (!searchFilters.source) return true;
+    if (!apiKeys) return true;
+    if (!searchFilters.searchParam || searchFilters.searchParam.trim() === "") return true;
+    const hasKey =
+      (searchFilters.source === API_SOURCES.THE_GUARDIAN.id && !!apiKeys.guardianNews) ||
+      (searchFilters.source === API_SOURCES.NEW_YORK_TIMES.id && !!apiKeys.nyTimes) ||
+      (searchFilters.source === API_SOURCES.THE_NEWS_API_ORG.id && !!apiKeys.newsApiOrg);
+    return !hasKey;
+  }, [searchFilters.source, searchFilters.searchParam, apiKeys]);
+
   return (
     <>
       <SearchColumn
         onChange={onChange}
         onSearch={onSearch}
         searchFilters={searchFilters}
+        isSearchDisabled={isSearchDisabled}
       />
       <ArticleList articles={searchResults} isLoading={isLoading} />
     </>

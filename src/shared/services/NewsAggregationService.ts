@@ -20,16 +20,23 @@ export class NewsAggregationService {
     apiKeys: { [key: string]: string }
   ): Promise<TArticle[]> {
     const selectedSources = preferences.sources || [];
+    // Normalize apiKeys object to align with registry IDs
+    const normalizedApiKeys: { [key: string]: string } = {
+      ...apiKeys,
+      newYorkTimes: apiKeys.newYorkTimes || apiKeys.nyTimes,
+      theGuardian: apiKeys.theGuardian || apiKeys.guardianNews,
+      newsApiOrg: apiKeys.newsApiOrg,
+    };
     const promises: Promise<TArticle[]>[] = [];
 
     for (const sourceId of selectedSources) {
       const service = this.registry.getService(sourceId);
-      if (!service || !apiKeys[sourceId]) {
+      if (!service || !normalizedApiKeys[sourceId]) {
         continue;
       }
 
       const request: INewsApiRequest = {
-        apiKey: apiKeys[sourceId],
+        apiKey: normalizedApiKeys[sourceId],
         category: preferences.category?.[sourceId],
       };
 
