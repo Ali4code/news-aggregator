@@ -1,81 +1,49 @@
-import { TPreferences } from "@entities/preferences/Preferences.types";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { TPreferences } from "@entities/preferences/Preferences.types";
+import { TArticle } from "@entities/article";
 import { selectApiKeys } from "@app/store/slices/authSlice";
-import { useGetHeadlinesNewsApiOrgQuery } from "@shared/api/newsApi/NewsApi.api";
-import { useSearchNewYorkTimesQuery } from "@shared/api/nyTimes/NewYorkTimes.api";
-import { API_SOURCES } from "@shared/config/apiSources";
-import { getAggregatedNews } from "./aggregator.util";
-import { useSearchGuardianQuery } from "@shared/api/theGuardian/TheGuardian.api";
+import { getNewsAggregationService } from "@shared/services/NewsAggregationService";
 
+/**
+ * Hook for fetching aggregated news feed
+ * Now follows DIP by depending on NewsAggregationService abstraction
+ * Follows SRP by only handling React state management for the hook
+ */
 export const useGetNewsFeed = ({
   preferences,
 }: {
   preferences: TPreferences;
 }) => {
   const apiKeys = useSelector(selectApiKeys);
+  const [data, setData] = useState<TArticle[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const {
-    data: newsApiData,
-    isLoading: isNewsApiLoading,
-    isFetching: isNewsApiFetching,
-  } = useGetHeadlinesNewsApiOrgQuery(
-    {
-      apiKey: apiKeys?.newsApiOrg,
-      category: preferences.category?.newsApiOrg,
-    },
-    {
-      skip:
-        !apiKeys?.newsApiOrg ||
-        !preferences.sources?.includes(API_SOURCES.THE_NEWS_API_ORG.id),
-    }
-  );
+  useEffect(() => {
+    const fetchNews = async () => {
+      if (!apiKeys) return;
 
-  const {
-    data: newYorkTimesData,
-    isLoading: isNewYorkTimesLoading,
-    isFetching: isNewYorkTimesFetching,
-  } = useSearchNewYorkTimesQuery(
-    {
-      apiKey: apiKeys?.nyTimes,
-      category: preferences.category?.newYorkTimes,
-    },
-    {
-      skip:
-        !apiKeys?.nyTimes ||
-        !preferences.sources?.includes(API_SOURCES.NEW_YORK_TIMES.id),
-    }
-  );
-  const {
-    data: guardianData,
-    isLoading: isGuardianLoading,
-    isFetching: isGuardianFetching,
-  } = useSearchGuardianQuery(
-    {
-      apiKey: apiKeys?.guardianNews,
-      category: preferences.category?.theGuardian,
-    },
-    {
-      skip:
-        !apiKeys?.guardianNews ||
-        !preferences.sources?.includes(API_SOURCES.THE_GUARDIAN.id),
-    }
-  );
+      setIsLoading(true);
+      try {
+        const aggregationService = getNewsAggregationService();
+        const articles = await aggregationService.fetchHeadlines(
+          preferences,
+          apiKeys
+        );
+        setData(articles);
+      } catch (error) {
+        console.error("Error fetching news:", error);
+        setData([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  const aggregatedNews = getAggregatedNews({
-    guardianData,
-    newsApiData,
-    newYorkTimesData,
-    preferences,
-  });
+    fetchNews();
+  }, [preferences, apiKeys]);
 
   return {
-    data: aggregatedNews,
-    isLoading:
-      isNewYorkTimesLoading ||
-      isNewsApiLoading ||
-      isGuardianLoading ||
-      isGuardianFetching ||
-      isNewYorkTimesFetching ||
-      isNewsApiFetching,
+    data,
+    isLoading,
   };
 };
