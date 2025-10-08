@@ -113,7 +113,7 @@ describe("getAggregatedNews", () => {
     });
 
     // Only NYTimes (B) and Guardian (C) should be included, sorted by date desc: B, C
-    expect(result.map((r) => r.title)).toEqual(["B", "C"]);
+    expect(result.map((r: { title: string }) => r.title)).toEqual(["B", "C"]);
   });
 });
 

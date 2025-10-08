@@ -6,8 +6,8 @@ import { store } from "@app/store";
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const executeQuery = async (endpoint: any): Promise<any> => {
-  // @ts-expect-error - RTK Query dispatch signature mismatch
-  const result = await store.dispatch(endpoint);
+  const dispatchAny = store.dispatch as unknown as (arg: any) => Promise<any> | any;
+  const result = await dispatchAny(endpoint);
   return result;
 };
 

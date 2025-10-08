@@ -24,7 +24,7 @@ describe("integration: aggregator with minimal datasets", () => {
       guardianData: { response: { results: [{ webTitle: "g" }] } } as any,
       preferences,
     });
-    expect(result.map((a) => a.title)).toEqual(["only"]);
+    expect(result.map((a: { title: string }) => a.title)).toEqual(["only"]);
   });
 });
 
